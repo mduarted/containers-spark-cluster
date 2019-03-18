@@ -26,7 +26,7 @@ The master image, named as spark-master, is the image that will represent our ma
 ```bash
 /spark/bin/spark-class org.apache.spark.deploy.master.Master -h $SPARK_MASTER_HOST
 ```
-Note that SPARK_MASTER_HOST is defined on this .sh file by hostname command that get the host name and domain name defined on docker-compose.yaml file, that we will later.
+Note that SPARK_MASTER_HOST variable is defined on this .sh file by hostname command that get the host name and domain name defined on docker-compose.yaml file, that we will see later.
 
 To build this image you need to execute the following code on project folder:
 ```bash
