@@ -9,7 +9,7 @@ Building a cluster of Apache Spark with containers using Docker-compose
 
 ## Building the Base Image
 
-The base image, named as spark-base, have all the dependencies that Spark needs to start.
+The base image, named as spark-base, has all the dependencies that Spark needs to start.
 
 To build this image you need to execute the following code on project root folder:
 
@@ -55,19 +55,19 @@ At this point we have all the images needed to start our cluster correctly. And 
 We have the following docker-compose.yaml file to configure and up all the nodes.
 
 ```bash
-version: "3.0"        # Defines the version of docker-compose.yaml file format
+version: "3.0"        # defining the version of docker-compose.yaml file format
         services:
-                spark-master:                      # Here we are creating our Spark Master node using our spark-master image
+                spark-master:                      # creating Spark Master node using spark-master image
                         image: spark-master:2.3.3        
                         container_name: spark-master
-                        hostname: spark-master        # Here we are defining the host name and domain name of this node
-                        ports:                        # Here we are doing a port pointing from host to node (this allows us to connect to cluster using host IP)
+                        hostname: spark-master        # defining the host name and domain name of this node
+                        ports:                        # doing a port pointing from host to node (this allows us to connect to cluster using host IP)
                                 - "8095:8080"         # 8080 is the port of UI of Spark Master node, and we can acces then using our 8095 localhost port
                                 - "7077:7077"         # 7077 is the port to access the Master Node via spark-shell and submit your applications to the cluster.
-                        networks:                     # I will talk more about this network later.
+                        networks:                     # setting the network used.
                                 spark-network:
-                                        ipv4_address: 172.18.0.2
-                spark-slave-1:
+                                        ipv4_address: 172.18.0.2   # defining a static ipv4 address respecting the subnet rule defined to this network
+                spark-slave-1:                        # creating slave01.
                          image: spark-slave:2.3.3
                          depends_on:
                                  - spark-master
@@ -76,7 +76,7 @@ version: "3.0"        # Defines the version of docker-compose.yaml file format
                          networks:
                                  spark-network:
                                          ipv4_address: 172.18.0.3
-                spark-slave-2:
+                spark-slave-2:                       # creating slave02.
                          image: spark-slave:2.3.3
                          depends_on:
                                  - spark-master
@@ -85,7 +85,7 @@ version: "3.0"        # Defines the version of docker-compose.yaml file format
                          networks:
                                  spark-network:
                                          ipv4_address: 172.18.0.4
-                spark-slave-3:
+                spark-slave-3:                       # creating slave01.
                          image: spark-slave:2.3.3
                          depends_on:
                                  - spark-master
@@ -95,12 +95,12 @@ version: "3.0"        # Defines the version of docker-compose.yaml file format
                                  spark-network:
                                          ipv4_address: 172.18.0.5
         networks:
-                spark-network:
-                        driver: bridge
+                spark-network:                      # creating a network.
+                        driver: bridge              # defining drives as "bridge" where we create a private network between host and containers.
                         ipam:
                                 driver: default
                                 config:
-                                        - subnet: 172.18.0.0/16
+                                        - subnet: 172.18.0.0/16    # defining a subnet to this network
 ```
 
 
