@@ -111,4 +111,5 @@ And now, to run our docker-compose we need to execute the following code on proj
 docker-compose up
 ```
 
-Now we have our spark cluster up and running!
+Now we have our spark cluster up and running! 
+Our master URL of cluster ir spark://localhost:7077 (this master url is used to connect applications via driver or spark-submit).
