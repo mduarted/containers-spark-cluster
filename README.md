@@ -63,7 +63,7 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                         hostname: spark-master        # defining the host name and domain name of this node
                         ports:                        # doing a port pointing from host to node (this allows us to connect to cluster using host IP)
                                 - "8095:8080"         # 8080 is the port of UI of Spark Master node, and we can acces then using our 8095 localhost port
-                                - "7077:7077"         # 7077 is the port to access the Master Node via spark-shell and submit your applications to the cluster.
+                                - "7077:7077"         # 7077 is the port to access the Master Node via spark-shell and submit your applications to the cluster.    
                         networks:                     # setting the network used.
                                 spark-network:
                                         ipv4_address: 172.18.0.2   # defining a static ipv4 address respecting the subnet rule defined to this network
@@ -73,6 +73,8 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                  - spark-master
                          container_name: spark-slave-1
                          hostname: spark-slave-1
+                         volumes:
+                                - /spark-data:/spark-data     # creating this volume to read host files in this volume inside cluster.
                          networks:
                                  spark-network:
                                          ipv4_address: 172.18.0.3
@@ -82,6 +84,8 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                  - spark-master
                          container_name: spark-slave-2
                          hostname: spark-slave-2
+                         volumes:
+                                - /spark-data:/spark-data
                          networks:
                                  spark-network:
                                          ipv4_address: 172.18.0.4
@@ -102,6 +106,17 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                 config:
                                         - subnet: 172.18.0.0/16    # defining a subnet to this network
 ```
+
+## Creating volumes
+
+We need to create our volumes too, run the following code to create the "spark-data" volume:
+
+```bash
+sudo mkdir /spark-data/
+sudo chown $(whoami):$(whoami) /spark-data/
+```
+
+Volumes created!
 
 ## Running Docker-compose
 
