@@ -96,7 +96,7 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                          ipv4_address: 172.18.0.5
         networks:
                 spark-network:                      # creating a network.
-                        driver: bridge              # defining drives as "bridge" where we create a private network between host and containers.
+                        driver: bridge              # defining drives as "bridge" where is created a private network between host and containers.
                         ipam:
                                 driver: default
                                 config:
