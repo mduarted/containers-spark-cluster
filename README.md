@@ -112,4 +112,4 @@ docker-compose up
 ```
 
 Now we have our spark cluster up and running! 
-Our master URL of cluster in spark://localhost:7077 (this master url is used to connect applications via driver or spark-submit).
+Our master URL of cluster in spark://localhost:7077 (this master url is used to connect applications to cluster via driver or spark-submit).
