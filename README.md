@@ -28,7 +28,7 @@ The master image, named as spark-master, is the image that represents our master
 ```
 Note that SPARK_MASTER_HOST variable is defined on this .sh file by hostname command that get the host name and domain name defined on docker-compose.yaml file, that we will see later.
 
-To build this image you need to execute the following code on project folder:
+To build this image you need to execute the following code on project root folder:
 ```bash
 docker build -t=spark-master:2.3.3 ./spark-master/
 ```
@@ -102,5 +102,14 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                 config:
                                         - subnet: 172.18.0.0/16    # defining a subnet to this network
 ```
+
+## Running Docker-compose
+
+And now, to run our docker-compose we need to execute the following code on project root folder:
+
+```bash
+docker-compose up
+```
+
 
 
