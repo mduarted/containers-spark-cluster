@@ -1,7 +1,9 @@
-FROM spark-base:2.7.0
+FROM spark-base:2.3.3
 ENV SPARK_MASTER_HOST "spark://spark-master:7077"
-COPY spark-slave.sh /
+COPY spark-slave.sh /home/spark/
 
-RUN chmod +x spark-slave.sh
+USER root
+RUN chmod +x /home/spark/spark-slave.sh
 
-CMD ["/bin/bash", "/spark-slave.sh"]
+USER spark
+CMD ["/bin/bash", "/home/spark/spark-slave.sh"]

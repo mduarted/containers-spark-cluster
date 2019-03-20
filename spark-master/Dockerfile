@@ -1,6 +1,9 @@
-FROM spark-base:2.7.0
+FROM spark-base:2.3.3
 
-COPY spark-master.sh /
+COPY spark-master.sh /home/spark/
 
-RUN chmod +x /spark-master.sh
-CMD ["/bin/bash", "/spark-master.sh"]
+USER root
+RUN chmod +x /home/spark/spark-master.sh
+
+USER spark
+CMD ["/bin/bash", "/home/spark/spark-master.sh"]
