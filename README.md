@@ -111,5 +111,4 @@ And now, to run our docker-compose we need to execute the following code on proj
 docker-compose up
 ```
 
-
-
+Now we have our spark cluster up and running!
