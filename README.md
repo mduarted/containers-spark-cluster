@@ -17,7 +17,7 @@ To build this image you need to execute the following code on project root folde
 docker build -t=spark-base:2.3.3 ./spark-base/
 ```
 
-Good! Now you have the spark-base image complete, note that the version of spark-base image is the version of Spark that is installed inside then.
+Good! Now you have the spark-base image completed, note that the version of spark-base image is the version of Spark that is installed inside then.
 
 ## Building the Master Node Image
 
@@ -33,7 +33,7 @@ To build this image you need to execute the following code on project root folde
 docker build -t=spark-master:2.3.3 ./spark-master/
 ```
 
-Nice! Now we have the master image complete and ready to up.
+Nice! Now we have the master image completed and ready to up.
 
 ## Building the Slave Node Image
 
