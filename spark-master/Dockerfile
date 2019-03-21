@@ -1,4 +1,4 @@
-FROM spark-base:2.3.3
+FROM spark-base:2.4.0
 
 COPY spark-master.sh /home/spark/
 

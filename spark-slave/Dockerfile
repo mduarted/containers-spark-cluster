@@ -1,4 +1,4 @@
-FROM spark-base:2.3.3
+FROM spark-base:2.4.0
 ENV SPARK_MASTER_HOST "spark://spark-master:7077"
 COPY spark-slave.sh /home/spark/
 
