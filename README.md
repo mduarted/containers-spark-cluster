@@ -14,7 +14,7 @@ The base image, named as spark-base, has all the dependencies that Spark needs t
 To build this image you need to execute the following code on project root folder:
 
 ```bash
-docker build -t=spark-base:2.3.3 ./spark-base/
+docker build -t=spark-base:2.4.0 ./spark-base/
 ```
 
 Good! Now you have the spark-base image completed, note that the version of spark-base image is the version of Spark that is installed inside then.
@@ -30,7 +30,7 @@ Note that SPARK_MASTER_HOST variable is defined on this .sh file by hostname com
 
 To build this image you need to execute the following code on project root folder:
 ```bash
-docker build -t=spark-master:2.3.3 ./spark-master/
+docker build -t=spark-master:2.4.0 ./spark-master/
 ```
 
 Nice! Now we have the master image completed and ready to up.
@@ -44,7 +44,7 @@ The slave image, named as spark-slave, is the image that represents our slave no
 
 To build this image you need to execute the following code on project folder:
 ```bash
-docker build -t=spark-slave:2.3.3 ./spark-slave/
+docker build -t=spark-slave:2.4.0 ./spark-slave/
 ```
 Great! Now we have the spark-slave image ready to get up and get started as Worker node on Spark cluster.
 
