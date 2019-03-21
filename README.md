@@ -100,7 +100,7 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                          ipv4_address: 172.18.0.5
         networks:
                 spark-network:                      # creating a network.
-                        driver: bridge              # defining drives as "bridge" where is created a private network between host and containers. If your spark application is running in other container you need to use this network to connect to cluster.
+                        driver: bridge              # defining drives as "bridge" where is created a private network between host and containers. If your spark application is running in other container then you need to use this network to connect to cluster. Example: docker run [OPTIONS] --network="cluster_spark_spark-network" [IMAGE]
                         ipam:
                                 driver: default
                                 config:
