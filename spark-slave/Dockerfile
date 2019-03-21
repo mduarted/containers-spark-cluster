@@ -1,5 +1,7 @@
 FROM spark-base:2.4.0
 ENV SPARK_MASTER_HOST "spark://spark-master:7077"
+ENV SPARK_EXECUTION_CORES "1"
+ENV SPARK_EXECUTION_MEM "2G"
 COPY spark-slave.sh /home/spark/
 
 USER root
