@@ -41,6 +41,11 @@ The slave image, named as spark-slave, is the image that represents our slave no
 ```bash
 /spark/bin/spark-class org.apache.spark.deploy.worker.Worker $SPARK_MASTER_HOST
 ```
+Note that in Dockerfile we define SPARK_EXECUTION_CORES and SPARK_EXECUTION_MEM environment variables, this variables represent the cores and memory parameter to spark execution to each slave node. Follow the default values:
+```bash
+ENV SPARK_EXECUTION_CORES "1"
+ENV SPARK_EXECUTION_MEM "2G"
+```
 
 To build this image you need to execute the following code on project folder:
 ```bash
