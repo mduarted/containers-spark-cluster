@@ -14,7 +14,7 @@ The base image, named as spark-base, has all the dependencies that Spark needs t
 To build this image you need to execute the following code on project root folder:
 
 ```bash
-docker build -t=spark-base:2.4.0 ./spark-base/
+docker build -t=spark-base:2.4.3 ./spark-base/
 ```
 
 Good! Now you have the spark-base image completed, note that the version of spark-base image is the version of Spark that is installed inside then.
@@ -30,7 +30,7 @@ Note that SPARK_MASTER_HOST variable is defined on this .sh file by hostname com
 
 To build this image you need to execute the following code on project root folder:
 ```bash
-docker build -t=spark-master:2.4.0 ./spark-master/
+docker build -t=spark-master:2.4.3 ./spark-master/
 ```
 
 Nice! Now we have the master image completed and ready to up.
@@ -49,7 +49,7 @@ ENV SPARK_EXECUTION_MEM "2G"
 
 To build this image you need to execute the following code on project folder:
 ```bash
-docker build -t=spark-slave:2.4.0 ./spark-slave/
+docker build -t=spark-slave:2.4.3 ./spark-slave/
 ```
 Great! Now we have the spark-slave image ready to get up and get started as Worker node on Spark cluster.
 
@@ -63,7 +63,7 @@ We have the following docker-compose.yaml file to configure and up all the nodes
 version: "3.0"        # defining the version of docker-compose.yaml file format
         services:
                 spark-master:                      # creating Spark Master node using spark-master image
-                        image: spark-master:2.3.3        
+                        image: spark-master:2.4.3        
                         container_name: spark-master
                         hostname: spark-master        # defining the host name and domain name of this node
                         ports:                        # doing a port pointing from host to node (this allows us to connect to cluster using host IP)
@@ -71,9 +71,9 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                 - "7077:7077"         # 7077 is the port to access the Master Node via spark-shell and submit your applications to the cluster.    
                         networks:                     # setting the network used.
                                 spark-network:
-                                        ipv4_address: 172.18.0.2   # defining a static ipv4 address respecting the subnet rule defined to this network
+                                        ipv4_address: 10.15.0.2   # defining a static ipv4 address respecting the subnet rule defined to this network
                 spark-slave-1:                        # creating slave01.
-                         image: spark-slave:2.3.3
+                         image: spark-slave:2.4.3
                          depends_on:
                                  - spark-master
                          container_name: spark-slave-1
@@ -82,9 +82,9 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                 - /spark-data:/spark-data     # creating this volume to read host files in this volume inside cluster.
                          networks:
                                  spark-network:
-                                         ipv4_address: 172.18.0.3
+                                         ipv4_address: 10.15.0.3
                 spark-slave-2:                       # creating slave02.
-                         image: spark-slave:2.3.3
+                         image: spark-slave:2.4.3
                          depends_on:
                                  - spark-master
                          container_name: spark-slave-2
@@ -93,23 +93,23 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                 - /spark-data:/spark-data
                          networks:
                                  spark-network:
-                                         ipv4_address: 172.18.0.4
+                                         ipv4_address: 10.15.0.4
                 spark-slave-3:                       # creating slave01.
-                         image: spark-slave:2.3.3
+                         image: spark-slave:2.4.3
                          depends_on:
                                  - spark-master
                          container_name: spark-slave-3
                          hostname: spark-slave-3
                          networks:
                                  spark-network:
-                                         ipv4_address: 172.18.0.5
+                                         ipv4_address: 10.15.0.5
         networks:
                 spark-network:                      # creating a network.
                         driver: bridge              # defining drives as "bridge" where is created a private network between host and containers. If your spark application is running in other container then you need to use this network to connect to cluster. Example: docker run [OPTIONS] --network="cluster_spark_spark-network" [IMAGE]
                         ipam:
                                 driver: default
                                 config:
-                                        - subnet: 172.18.0.0/16    # defining a subnet to this network
+                                        - subnet: 10.15.0.0/16    # defining a subnet to this network
 ```
 
 ## Creating volumes
