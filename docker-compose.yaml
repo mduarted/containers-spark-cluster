@@ -1,7 +1,7 @@
         version: "3.0"        
         services:
                 spark-master:
-                        image: spark-master:2.4.3
+                        image: spark-master:$SPARK_VERSION
                         container_name: spark-master
                         hostname: spark-master
                         ports:
@@ -11,7 +11,7 @@
                                 spark-network:
                                         ipv4_address: 10.15.0.2
                 spark-slave-1:
-                         image: spark-slave:2.4.3
+                         image: spark-slave:$SPARK_VERSION
                          depends_on:
                                  - spark-master
                          container_name: spark-slave-1
@@ -22,7 +22,7 @@
                                  spark-network:
                                          ipv4_address: 10.15.0.3
                 spark-slave-2:
-                         image: spark-slave:2.4.3
+                         image: spark-slave:$SPARK_VERSION
                          depends_on:
                                  - spark-master
                          container_name: spark-slave-2
@@ -33,7 +33,7 @@
                                  spark-network:
                                          ipv4_address: 10.15.0.4
                 spark-slave-3:
-                         image: spark-slave:2.4.3
+                         image: spark-slave:$SPARK_VERSION
                          depends_on:
                                  - spark-master
                          container_name: spark-slave-3

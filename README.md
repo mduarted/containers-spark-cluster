@@ -4,8 +4,16 @@ Building a cluster of Apache Spark with containers using Docker-compose
 
 ## Requirements
 
-1) You need to have [docker](https://docs.docker.com/install/) on your machine.
-2) You need to have [docker-compose](https://docs.docker.com/compose/install/) on you machine.
+1) [docker](https://docs.docker.com/install/) on your machine.
+2) [docker-compose](https://docs.docker.com/compose/install/) on you machine.
+
+## Setting up variables
+Before we start building, we need to define some variables.
+
+```bash
+export SPARK_VERSION=2.4.4 #Here we are defining the Spark version to create our cluster. The default value is 2.4.4
+export HADOOP_VERSION=2.7 #Here we are defining the Hadoop version to support our Spark cluster. The default value is 2.7
+```
 
 ## Building the Base Image
 
@@ -14,7 +22,7 @@ The base image, named as spark-base, has all the dependencies that Spark needs t
 To build this image you need to execute the following code on project root folder:
 
 ```bash
-docker build -t=spark-base:2.4.3 ./spark-base/
+docker build -t=spark-base:$SPARK_VERSION --build-arg SPARK_VERSION=$SPARK_VERSION --build-arg HADOOP_VERSION=$HADOOP_VERSION ./spark-base/
 ```
 
 Good! Now you have the spark-base image completed, note that the version of spark-base image is the version of Spark that is installed inside then.
@@ -30,7 +38,7 @@ Note that SPARK_MASTER_HOST variable is defined on this .sh file by hostname com
 
 To build this image you need to execute the following code on project root folder:
 ```bash
-docker build -t=spark-master:2.4.3 ./spark-master/
+docker build -t=spark-master:$SPARK_VERSION --build-arg SPARK_VERSION=$SPARK_VERSION ./spark-master/
 ```
 
 Nice! Now we have the master image completed and ready to up.
@@ -49,7 +57,7 @@ ENV SPARK_EXECUTION_MEM "2G"
 
 To build this image you need to execute the following code on project folder:
 ```bash
-docker build -t=spark-slave:2.4.3 ./spark-slave/
+docker build -t=spark-slave:$SPARK_VERSION --build-arg SPARK_VERSION=$SPARK_VERSION ./spark-slave/
 ```
 Great! Now we have the spark-slave image ready to get up and get started as Worker node on Spark cluster.
 
@@ -63,7 +71,7 @@ We have the following docker-compose.yaml file to configure and up all the nodes
 version: "3.0"        # defining the version of docker-compose.yaml file format
         services:
                 spark-master:                      # creating Spark Master node using spark-master image
-                        image: spark-master:2.4.3        
+                        image: spark-master:$SPARK_VERSION        
                         container_name: spark-master
                         hostname: spark-master        # defining the host name and domain name of this node
                         ports:                        # doing a port pointing from host to node (this allows us to connect to cluster using host IP)
@@ -73,7 +81,7 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                 spark-network:
                                         ipv4_address: 10.15.0.2   # defining a static ipv4 address respecting the subnet rule defined to this network
                 spark-slave-1:                        # creating slave01.
-                         image: spark-slave:2.4.3
+                         image: spark-slave:$SPARK_VERSION
                          depends_on:
                                  - spark-master
                          container_name: spark-slave-1
@@ -84,7 +92,7 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                  spark-network:
                                          ipv4_address: 10.15.0.3
                 spark-slave-2:                       # creating slave02.
-                         image: spark-slave:2.4.3
+                         image: spark-slave:$SPARK_VERSION
                          depends_on:
                                  - spark-master
                          container_name: spark-slave-2
@@ -95,7 +103,7 @@ version: "3.0"        # defining the version of docker-compose.yaml file format
                                  spark-network:
                                          ipv4_address: 10.15.0.4
                 spark-slave-3:                       # creating slave01.
-                         image: spark-slave:2.4.3
+                         image: spark-slave:$SPARK_VERSION
                          depends_on:
                                  - spark-master
                          container_name: spark-slave-3
