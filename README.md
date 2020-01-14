@@ -54,8 +54,13 @@ Note that in Dockerfile we define SPARK_EXECUTION_CORES and SPARK_EXECUTION_MEM 
 ENV SPARK_EXECUTION_CORES "1"
 ENV SPARK_EXECUTION_MEM "2G"
 ```
+You can edit these variables passing the new values as build arguments using the "--build-arg" parameter. Follow a example: 
 
-To build this image you need to execute the following code on project folder:
+```bash
+docker build -t=spark-slave:$SPARK_VERSION --build-arg SPARK_VERSION=$SPARK_VERSION --build-arg SPARK_EXECUTION_CORES="2" --build-arg SPARK_EXECUTION_MEM="5G" ./spark-slave/
+```
+
+To build this image with default values you need to execute the following code:
 ```bash
 docker build -t=spark-slave:$SPARK_VERSION --build-arg SPARK_VERSION=$SPARK_VERSION ./spark-slave/
 ```

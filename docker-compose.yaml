@@ -1,54 +1,54 @@
-        version: "3.0"        
-        services:
-                spark-master:
-                        image: spark-master:$SPARK_VERSION
-                        container_name: spark-master
-                        hostname: spark-master
-                        ports:
-                                - "8095:8080"
-                                - "7077:7077"
+version: "3.0"        
+services:
+        spark-master:
+                image: spark-master:$SPARK_VERSION
+                container_name: spark-master
+                hostname: spark-master
+                ports:
+                        - "8095:8080"
+                        - "7077:7077"
+                networks:
+                        spark-network:
+                                ipv4_address: 10.15.0.2
+        spark-slave-1:
+                        image: spark-slave:$SPARK_VERSION
+                        depends_on:
+                                - spark-master
+                        container_name: spark-slave-1
+                        hostname: spark-slave-1
+                        volumes:
+                                - /spark-data:/spark-data
                         networks:
                                 spark-network:
-                                        ipv4_address: 10.15.0.2
-                spark-slave-1:
-                         image: spark-slave:$SPARK_VERSION
-                         depends_on:
-                                 - spark-master
-                         container_name: spark-slave-1
-                         hostname: spark-slave-1
-                         volumes:
-                                 - /spark-data:/spark-data
-                         networks:
-                                 spark-network:
-                                         ipv4_address: 10.15.0.3
-                spark-slave-2:
-                         image: spark-slave:$SPARK_VERSION
-                         depends_on:
-                                 - spark-master
-                         container_name: spark-slave-2
-                         hostname: spark-slave-2
-                         volumes:
-                                 - /spark-data:/spark-data
-                         networks:
-                                 spark-network:
-                                         ipv4_address: 10.15.0.4
-                spark-slave-3:
-                         image: spark-slave:$SPARK_VERSION
-                         depends_on:
-                                 - spark-master
-                         container_name: spark-slave-3
-                         hostname: spark-slave-3
-                         volumes:
-                                 - /spark-data:/spark-data
-                         networks:
-                                 spark-network:
-                                         ipv4_address: 10.15.0.5
-        networks:
-                spark-network:
-                        driver: bridge
-                        ipam:
-                                driver: default
-                                config:
-                                        - subnet: 10.15.0.0/16
+                                        ipv4_address: 10.15.0.3
+        spark-slave-2:
+                        image: spark-slave:$SPARK_VERSION
+                        depends_on:
+                                - spark-master
+                        container_name: spark-slave-2
+                        hostname: spark-slave-2
+                        volumes:
+                                - /spark-data:/spark-data
+                        networks:
+                                spark-network:
+                                        ipv4_address: 10.15.0.4
+        spark-slave-3:
+                        image: spark-slave:$SPARK_VERSION
+                        depends_on:
+                                - spark-master
+                        container_name: spark-slave-3
+                        hostname: spark-slave-3
+                        volumes:
+                                - /spark-data:/spark-data
+                        networks:
+                                spark-network:
+                                        ipv4_address: 10.15.0.5
+networks:
+        spark-network:
+                driver: bridge
+                ipam:
+                        driver: default
+                        config:
+                                - subnet: 10.15.0.0/16
 
 
