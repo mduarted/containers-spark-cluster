@@ -19,16 +19,15 @@ RUN apk update && \
     rm -r /root/.cache
 
 
-RUN curl -o spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz http://www-us.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
-RUN tar xvf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
-RUN mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
-RUN rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
-
-RUN mkdir /spark-data/
+RUN curl -o spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz http://www-us.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+    tar xvf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+    mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark && \
+    rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
 
 RUN adduser --shell /bin/bash --home /home/spark --disabled-password spark
 
-RUN chown spark:spark -R /spark/
-RUN chown spark:spark -R /home/spark
+RUN mkdir /spark-data/ && \
+    chown spark:spark -R /spark/ && \
+    chown spark:spark -R /home/spark
 
 USER spark
